@@ -1,0 +1,24 @@
+resources:
+  grants:
+    bronze_grants:
+      schema: ${var.catalog_name}.bronze
+      grants:
+        - principal: data-engineers
+          privileges: [USE_SCHEMA, SELECT, MODIFY]
+        - principal: analytics-readers
+          privileges: [USE_SCHEMA, SELECT]
+    silver_grants:
+      schema: ${var.catalog_name}.silver
+      grants:
+        - principal: data-engineers
+          privileges: [USE_SCHEMA, SELECT, MODIFY]
+        - principal: analytics-readers
+          privileges: [USE_SCHEMA, SELECT]
+    gold_grants:
+      schema: ${var.catalog_name}.gold
+      grants:
+        - principal: data-engineers
+          privileges: [USE_SCHEMA, SELECT, MODIFY]
+        - principal: analytics-readers
+          privileges: [USE_SCHEMA, SELECT]
+

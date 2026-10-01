@@ -1,0 +1,15 @@
+resources:
+  schemas:
+    bronze:
+      name: bronze
+      catalog_name: ${var.catalog_name}
+      comment: Raw, append-oriented source data
+    silver:
+      name: silver
+      catalog_name: ${var.catalog_name}
+      comment: Validated and conformed data
+    gold:
+      name: gold
+      catalog_name: ${var.catalog_name}
+      comment: Business-ready data products
+
