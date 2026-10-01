@@ -1,0 +1,66 @@
+bundle:
+  name: enterprise-lakehouse-platform
+
+include:
+  - resources/*.yml
+
+variables:
+  workspace_host:
+    description: Workspace URL for the selected target
+  catalog_name:
+    description: Existing Unity Catalog catalog for this environment
+  secret_scope:
+    description: Existing secret scope backed by the approved secret manager
+  service_principal_application_id:
+    description: Application ID for the release/workload identity
+  node_type_id:
+    description: Approved node type from the workspace policy
+    default: m5d.large
+  max_workers:
+    description: Upper bound for job cluster autoscaling
+    default: 4
+  warehouse_size:
+    description: SQL warehouse size for this target
+    default: Small
+  warehouse_max_clusters:
+    description: Warehouse scale-out cap
+    default: 2
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: ${var.workspace_host}
+    variables:
+      catalog_name: lakehouse_dev
+      secret_scope: platform-dev
+      node_type_id: m5d.large
+      max_workers: 2
+      warehouse_size: Small
+  staging:
+    mode: production
+    workspace:
+      host: ${var.workspace_host}
+    variables:
+      catalog_name: lakehouse_staging
+      secret_scope: platform-staging
+      node_type_id: m5d.large
+      max_workers: 4
+      warehouse_size: Small
+  prod:
+    mode: production
+    workspace:
+      host: ${var.workspace_host}
+    variables:
+      catalog_name: lakehouse_prod
+      secret_scope: platform-prod
+      node_type_id: m5d.large
+      max_workers: 8
+      warehouse_size: Medium
+
+artifacts:
+  platform_wheel:
+    type: whl
+    path: .
+    build: python3 -m build --wheel

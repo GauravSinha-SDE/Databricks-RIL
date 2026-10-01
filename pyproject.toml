@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "databricks-platform"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+ingest_bronze = "databricks_platform.entrypoints:ingest_bronze"
+transform_silver = "databricks_platform.entrypoints:transform_silver"
+publish_gold = "databricks_platform.entrypoints:publish_gold"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
